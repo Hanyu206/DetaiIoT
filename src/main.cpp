@@ -21,8 +21,6 @@ char pass[] = SECRET_WIFI_PASS;
 #define LED_A_RED     19
 
 // ===================== CHÂN GPIO - HƯỚNG B (Đông - Tây) ====================
-// GPIO 25, 26, 27 là các chân GPIO thông thường, an toàn để xuất tín hiệu,
-// không thuộc dải chỉ nhận đầu vào (34-39) và không phải chân cấu hình boot (0,2,12,15)
 #define LED_B_GREEN   25
 #define LED_B_YELLOW  26
 #define LED_B_RED     27
@@ -72,8 +70,7 @@ int tinhThoiGianXanh(int N, const char* &matDoOut) {
 // ===================== VÒNG PHA CHO 1 HƯỚNG =====================
 // huong: 1 = A đang chạy (B giữ đỏ) | 2 = B đang chạy (A giữ đỏ)
 // Đèn đỏ của hướng đối diện luôn được giữ trong ĐÚNG khoảng thời gian
-// xanh + vàng của hướng đang chạy -> đây là điểm sửa lỗi so với bản cũ
-// (bản cũ đèn đỏ luôn cố định 10s bất kể hướng còn lại chạy bao lâu).
+// xanh + vàng của hướng đang chạy
 void chayPha(int huong) {
   int ledXanhChinh, ledVangChinh, ledDoChinh;
   int ledXanhDoi, ledVangDoi, ledDoDoi;
@@ -203,6 +200,6 @@ void setup() {
 }
 
 void loop() {
-  chayPha(1); // Hướng A xanh + vàng, hướng B giữ đỏ trong cùng khoảng thời gian đó
-  chayPha(2); // Hướng B xanh + vàng, hướng A giữ đỏ trong cùng khoảng thời gian đó
+  chayPha(1);
+  chayPha(2);
 }
