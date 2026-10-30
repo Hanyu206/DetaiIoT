@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from ultralytics import YOLO
 import cv2
 import requests
@@ -6,7 +8,8 @@ import threading
 from flask import Flask, Response
 from collections import deque
 
-TOKEN = "C0V9wGBhWofk4QDqrgNuXXhOWCz-gxwI"
+load_dotenv()
+TOKEN = os.getenv("BLYNK_AUTH_TOKEN")
 BASE_URL = "https://sgp1.blynk.cloud/external/api/update"
 
 # ==================== CẤU HÌNH 2 HƯỚNG ====================
@@ -207,10 +210,6 @@ def xu_ly_huong(lane, video_path, pin_so_xe):
 
         with khoa_frame:
             khung_hinh[lane] = frame_ve.copy()
-
-        # Lưu ý: cv2.imshow gọi từ nhiều thread có thể không ổn định trên một số hệ điều hành
-        # (đặc biệt macOS). Nếu bị treo/crash, comment 2 dòng imshow/waitKey bên dưới và
-        # chỉ xem video qua Flask (/video_feed_a, /video_feed_b) trên trình duyệt.
         cv2.imshow(f"He thong Giam sat AI - Huong {lane}", frame_ve)
 
         # Gửi định kỳ số xe lên Blynk
